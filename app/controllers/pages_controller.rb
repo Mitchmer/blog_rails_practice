@@ -28,8 +28,23 @@ class PagesController < ApplicationController
     end
   end
 
-  
+  #GET /pages/:id/ehit
+    def edit
+      @page = Page.find(params[:id])
+    end
 
+    #PUT / PATCH /pages/:id
+    def update
+      @page = Page.find(params[:id])
+
+      if @page.update(page_params)
+        redirect_to page_path(@page)
+      else
+        render :edit
+      end
+    end
+
+    
   private
     def page_params
       params.require(:page).permit(:body, :author, :title)
